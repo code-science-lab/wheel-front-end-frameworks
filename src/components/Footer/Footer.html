@@ -1,14 +1,8 @@
-<!-- Footer.html -->
 <footer class="footer">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6">
-        <div>
-          <script>
-            document.write(new Date().getFullYear());
-          </script>
-          © Dashtrap
-        </div>
+        <div>&copy; {{year}} {{companyName}}</div>
       </div>
       <div class="col-md-6">
         <div
@@ -16,7 +10,7 @@
         >
           <p class="mb-0">
             Design & Develop by
-            <a href="https://myrathemes.com/" target="_blank">MyraStudio</a>
+            <a href="{{designerLink}}" target="_blank">{{designer}}</a>
           </p>
         </div>
       </div>
