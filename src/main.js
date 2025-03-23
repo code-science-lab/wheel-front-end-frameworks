@@ -4,27 +4,30 @@ import { PageTitle } from "./components/PageTitle/PageTitle.js"; // 引入 PageT
 import { Footer } from "./components/Footer/Footer.js"; // 引入 Footer 组件
 import { DomUtils } from "./utils/DomUtils";
 
+import "./components/Footer/CodeScienceFooter.js"; // 引入 CodeScienceFooter 组件
+import "./components/PageTitle/CodeSciencePageTitle.js"; // 引入 CodeSciencePageTitle 组件
+
 DomUtils.replaceElement(new Sidebar().render(), ".sidebar-container");
 DomUtils.replaceElement(new Navbar().render(), ".navbar-container");
 
-//======> 渲染 PageTitle 这部分可以配置出去
-const pageTitleData = {
-  title: "Welcome to My App",
-  breadcrumb: [
-    { text: "Home", link: "/home" },
-    { text: "Dashboard", link: "/dashboard" },
-  ],
-};
+// //======> 渲染 PageTitle 这部分可以配置出去
+// const pageTitleData = {
+//   title: "Welcome to My App",
+//   breadcrumb: [
+//     { text: "Home", link: "/home" },
+//     { text: "Dashboard", link: "/dashboard" },
+//   ],
+// };
 
-const pageTitle = new PageTitle(pageTitleData);
-DomUtils.replaceElement(pageTitle.render(), ".page-title-container");
+// const pageTitle = new PageTitle(pageTitleData);
+// DomUtils.replaceElement(pageTitle.render(), ".page-title-container");
 
 //======>  渲染 Footer： 这部分可以配置出去
-const footerData = {
-  year: 2025,
-  companyName: "Code Science",
-  designer: "Alan.Luo",
-  designerLink: "#",
-};
-const footer = new Footer(footerData);
-DomUtils.replaceElement(footer.render(), ".footer-container");
+// const footerData = {
+//   year: 2025,
+//   companyName: "Code Science",
+//   designer: "Alan.Luo",
+//   designerLink: "#",
+// };
+// const footer = new Footer(footerData);
+// DomUtils.replaceElement(footer.render(), ".footer-container");

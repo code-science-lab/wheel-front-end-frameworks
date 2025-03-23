@@ -25,11 +25,21 @@
         <div class="px-3">
           <div class="container-fluid">
             <!-- start page title -->
-            <div class="page-title-container"></div>
+            <!-- 使用 <code-science-page-title> 标签，传递属性 -->
+            <code-science-page-title
+              title="Dashboard"
+              breadcrumb='[{"text": "Home", "link": "/home"}, {"text": "Dashboard", "link": "/dashboard"}]'
+            />
             <div class="content-container">这里是内容</div>
           </div>
         </div>
-        <footer class="footer-container"></footer>
+        <!-- <footer class="footer-container"></footer> -->
+        <code-science-footer
+          year="2025"
+          company-name="My Company"
+          designer="John"
+          designer-link="http://example.com"
+        />
       </div>
     </div>
     <!-- App js -->
