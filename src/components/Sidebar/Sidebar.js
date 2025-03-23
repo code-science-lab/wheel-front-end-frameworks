@@ -1,34 +1,12 @@
-// src/components/Sidebar/Sidebar.js
-export function createSidebar() {
-  let isOpen = false; // 侧边栏的展开状态
+// Sidebar.js
+import strSidebarHtml from "./Sidebar.html"; // 使用 raw-loader 加载 HTML 文件
+import logoLight from "../../assets/images/logo-light.png"; // 引入图片路径
+import { DomUtils } from "../../utils/DomUtils"; // 引入 DomUtils 类
 
-  // 渲染侧边栏
-  function render() {
-    const sidebar = document.createElement("div");
-    sidebar.className = "sidebar";
-    sidebar.innerHTML = `
-        <button class="toggle-btn">Toggle Sidebar</button>
-        <ul class="sidebar-links ${isOpen ? "open" : ""}">
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-        </ul>
-      `;
-
-    // 绑定事件
-    const toggleBtn = sidebar.querySelector(".toggle-btn");
-    toggleBtn.addEventListener("click", toggle);
-
-    return sidebar;
+export class Sidebar {
+  render() {
+    // 在 HTML 模板中替换占位符
+    const strHtml = strSidebarHtml.replace("{{logoPath}}", logoLight);
+    return DomUtils.convertToDom(strHtml);
   }
-
-  // 切换侧边栏状态
-  function toggle() {
-    isOpen = !isOpen;
-    const sidebarLinks = document.querySelector(".sidebar-links");
-    if (sidebarLinks) {
-      sidebarLinks.classList.toggle("open", isOpen);
-    }
-  }
-
-  return { render };
 }

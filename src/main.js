@@ -10,33 +10,15 @@ import "jquery-knob"; // 引入 jquery-knob
 // App JS
 import "./assets/js/config";
 import "./assets/js/vendor.min";
-import "./assets/js/app";
-// <!-- Knob charts js -->
-// import "./assets/libs/jquery-knob/jquery.knob.min";
-// <!-- Sparkline Js-->
-// import "./assets/libs/jquery-sparkline/jquery.sparkline.min";
-// import "./assets/libs/morris.js/morris.min";
-// import "./assets/libs/raphael/raphael.min";
-// <!-- Dashboard init-->
-// import "./assets/js/pages/dashboard";
-$(function () {
-  $(".knob").knob();
-});
-// 初始化导航栏
-// import { Navbar } from "./components/Navbar/Navbar.js";
-// const navbar = new Navbar();
-// document.body.prepend(navbar.render());
+//import "./assets/js/app";
 
-// // 初始化侧边栏
-// import { createSidebar } from "./components/Sidebar/Sidebar.js";
-// const sidebar = createSidebar();
-// document.body.appendChild(sidebar.render());
+import { Sidebar } from "./components/Sidebar/Sidebar.js"; // 引入 Sidebar 组件
+import { Navbar } from "./components/Navbar/Navbar.js"; // 引入 Navbar 组件
+import { PageTitle } from "./components/PageTitle/PageTitle.js"; // 引入 PageTitle 组件
+import { Footer } from "./components/Footer/Footer.js"; // 引入 Footer 组件
+import { DomUtils } from "./utils/DomUtils";
 
-// // 示例：动态加载内容
-// const mainContent = document.createElement("div");
-// mainContent.className = "main-content";
-// mainContent.innerHTML = `
-//   <h1>Welcome to My App</h1>
-//   <p>This is a pure HTML + JavaScript project.</p>
-// `;
-// document.body.appendChild(mainContent);
+DomUtils.replaceElement(new Sidebar().render(), ".sidebar-container");
+DomUtils.replaceElement(new Navbar().render(), ".navbar-container");
+DomUtils.replaceElement(new PageTitle().render(), ".page-title-container");
+DomUtils.replaceElement(new Footer().render(), ".footer-container");

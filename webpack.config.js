@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
@@ -13,7 +14,7 @@ module.exports = {
   devServer: {
     static: path.resolve(__dirname, "dist"), // Webpack Dev Server 提供 dist/ 目录中的静态文件
     hot: true, // 启用热更新
-    open: ["/starter.html"], // 自动打开浏览器
+    open: ["/starter.html"], // 自动打开浏览器  starter  index
   },
   module: {
     rules: [
@@ -22,7 +23,7 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(png|jpe?g|gif|svg)$/i, // 图片资源处理
+        test: /\.(png|jpe?g|gif|svg|ico)$/i, // 图片资源处理
         type: "asset/resource", // Webpack 会处理并输出到 dist/assets/
       },
       {
@@ -34,6 +35,20 @@ module.exports = {
         test: /\.js$/,
         exclude: path.resolve(__dirname, "src/assets"), // 排除 assets 目录下的 JS 文件
         use: "babel-loader", // JS 文件通过 Babel 处理
+      },
+      {
+        // 使用 raw-loader 仅处理 src/components 目录下的 HTML 文件
+        test: /src\/components\/.*\.html$/,
+        use: "raw-loader",
+      },
+      {
+        // 使用 html-loader 处理其他 HTML 文件
+        test: /\.html$/,
+        exclude: /src\/components\//, // 排除 src/components 目录
+        loader: "html-loader",
+        options: {
+          sources: false, // 禁用资源处理
+        },
       },
     ],
   },
@@ -48,10 +63,15 @@ module.exports = {
         },
       ],
     }),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+    }),
     // 打包实际页面
     new HtmlWebpackPlugin({
       template: "./src/pages/starter.html", // Starter 页面模板
       filename: "starter.html", // 输出文件名
+      inject: "body", // 确保 JavaScript 被正确注入到 body 标签的底部
     }),
     new HtmlWebpackPlugin({
       template: "./src/pages/index-dev.html",
