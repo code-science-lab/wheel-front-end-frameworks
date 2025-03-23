@@ -13,8 +13,7 @@ module.exports = {
   devServer: {
     static: path.resolve(__dirname, "dist"), // Webpack Dev Server 提供 dist/ 目录中的静态文件
     hot: true, // 启用热更新
-    open: true, // 自动打开浏览器
-    openPage: "starter.html", // Ex：index.html，starter.html
+    open: ["/starter.html"], // 自动打开浏览器
   },
   module: {
     rules: [
