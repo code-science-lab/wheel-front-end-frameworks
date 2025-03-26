@@ -45,4 +45,10 @@ export class DomUtils {
       console.error("目标元素未找到");
     }
   }
+
+  static renderToContainer(PageClass, containerId) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = "";
+    container.appendChild(new PageClass().render());
+  }
 }

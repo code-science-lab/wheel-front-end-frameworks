@@ -9,12 +9,17 @@ module.exports = {
     path: path.resolve(__dirname, "dist"), // 输出目录
     filename: "bundle.js", // 输出文件名
     clean: true, // 每次构建前清理输出目录
+    publicPath: "/", // 添加这行确保资源路径正确
     assetModuleFilename: "assets/images/[name].[contenthash][ext]", // 配置图片输出路径
   },
   devServer: {
     static: path.resolve(__dirname, "dist"), // Webpack Dev Server 提供 dist/ 目录中的静态文件
     hot: true, // 启用热更新
     open: ["/starter.html"], // 自动打开浏览器  starter  index
+    historyApiFallback: {
+      disableDotRule: true,
+      index: "/starter.html",
+    },
   },
   module: {
     rules: [

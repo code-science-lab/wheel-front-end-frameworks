@@ -6,14 +6,24 @@ import { DomUtils } from "./utils/DomUtils";
 
 import "./components/Footer/CodeScienceFooter.js"; // 引入 CodeScienceFooter 组件
 import "./components/PageTitle/CodeSciencePageTitle.js"; // 引入 CodeSciencePageTitle 组件
+import { createRouter } from "./utils/router";
 
+import { HomePage } from "./pages/HomePage/HomePage.js"; //引入Home 页面
+import { DashboardsPage } from "./pages/DashboardsPage/DashboardsPage.js"; //引入Home 页面
 const menuConfig = [
   { type: "title", name: "Menu" },
-
+  {
+    name: "Home",
+    //path: "#/Home",
+    path: "/Home",
+    icon: "bx bx-home-smile",
+    children: [],
+  },
   // Dashboard
   {
     name: "Dashboards",
-    path: "index.html",
+    path: "/Dashboards",
+    //path: "#/Dashboards",
     icon: "bx bx-home-smile",
     badge: { text: "01", color: "bg-primary" },
     children: [],
@@ -229,3 +239,29 @@ DomUtils.replaceElement(new Navbar().render(), ".navbar-container");
 // };
 // const footer = new Footer(footerData);
 // DomUtils.replaceElement(footer.render(), ".footer-container");
+
+// 页面渲染函数
+
+//初始化路由
+const router = createRouter({
+  mode: "history", // 'history' 或 'hash'
+  routes: {
+    "/": () => {
+      DomUtils.renderToContainer(HomePage, "content");
+    },
+    "/Home": () => {
+      DomUtils.renderToContainer(HomePage, "content");
+    },
+    "/Dashboards": () => {
+      DomUtils.renderToContainer(DashboardsPage, "content");
+    },
+    "/user/:id": () => {
+      DomUtils.renderToContainer(DashboardsPage, "content");
+    },
+    "*": () =>
+      (document.getElementById("app").innerHTML = "<h1>404 Not Found</h1>"),
+  },
+});
+
+// 暴露到全局方便测试
+window.router = router;
