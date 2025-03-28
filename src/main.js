@@ -217,23 +217,27 @@ const menuConfig = [
 
 DomUtils.replaceElement(new Sidebar(menuConfig).render(), ".sidebar-container");
 
-const navbarData = {
-  user: {
-    name: "Jerry Tang",
-    avatar: "assets/images/users/avatar-4.jpg",
-  },
-  notifications: [
-    {
-      type: "message",
-      title: "新消息",
-      time: "10:30",
-      message: "您有新的未读消息",
-      bgClass: "bg-success",
-    },
-  ],
-  unreadCount: 1,
-};
-DomUtils.replaceElement(new Navbar(navbarData).render(), ".navbar-container");
+// const navbarData = {
+//   user: {
+//     name: "Jerry Tang",
+//     avatar: "assets/images/users/avatar-4.jpg",
+//   },
+//   notifications: [
+//     {
+//       type: "message",
+//       title: "新消息",
+//       time: "10:30",
+//       message: "您有新的未读消息",
+//       bgClass: "bg-success",
+//     },
+//   ],
+//   unreadCount: 1,
+// };
+// DomUtils.replaceElement(new Navbar(navbarData).render(), ".navbar-container");
+const navbar = new Navbar();
+navbar.loadData().then(() => {
+  DomUtils.replaceElement(navbar.render(), ".navbar-container");
+});
 
 // //======> 渲染 PageTitle 这部分可以配置出去
 // const pageTitleData = {
