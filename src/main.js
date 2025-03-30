@@ -9,7 +9,9 @@ import "./components/PageTitle/CodeSciencePageTitle.js"; // 引入 CodeSciencePa
 import { createRouter } from "./utils/router";
 
 import { HomePage } from "./pages/HomePage/HomePage.js"; //引入Home 页面
-import { DashboardsPage } from "./pages/DashboardsPage/DashboardsPage.js"; //引入Home 页面
+import { DashboardsPage } from "./pages/DashboardsPage/DashboardsPage.js"; //DashboardsPage 页面
+import { WebElementsPage } from "./pages/WebElementsPage/WebElementsPage.js"; //WebElementsPage 页面
+
 const menuConfig = [
   { type: "title", name: "Menu" },
   {
@@ -73,7 +75,13 @@ const menuConfig = [
   },
 
   { type: "title", name: "Components" },
-
+  // Web Elements
+  {
+    name: "Web Elements",
+    path: "/WebElements",
+    icon: "bx bx-category",
+    children: [],
+  },
   // UI Elements
   {
     name: "UI Elements",
@@ -91,7 +99,7 @@ const menuConfig = [
       { name: "Grid", path: "ui-grid.html" },
       { name: "Images", path: "ui-images.html" },
       { name: "List Group", path: "ui-list-group.html" },
-      { name: "Modals", path: "ui-modals.html" },
+      //{ name: "Modals", path: "ui-modals.html" },
       { name: "Offcanvas", path: "ui-offcanvas.html" },
       { name: "Placeholders", path: "ui-placeholders.html" },
       { name: "Progress", path: "ui-progress.html" },
@@ -275,6 +283,9 @@ const router = createRouter({
     },
     "/Dashboards": () => {
       DomUtils.renderToContainer(DashboardsPage, "content");
+    },
+    "/WebElements": () => {
+      DomUtils.renderToContainer(WebElementsPage, "content");
     },
     "/user/:id": () => {
       DomUtils.renderToContainer(DashboardsPage, "content");

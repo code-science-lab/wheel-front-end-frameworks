@@ -15,6 +15,11 @@ export class DomUtils {
     const element = doc.body.firstChild;
     return element;
   }
+  static updateDom(container, newHtml) {
+    const newElement = this.convertToDom(newHtml);
+    container.parentNode?.replaceChild(newElement, container);
+    return newElement;
+  }
 
   /**
    * 将 DOM 元素插入到目标容器中
