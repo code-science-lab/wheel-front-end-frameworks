@@ -1,6 +1,7 @@
 import { HistoryStrategy } from "./strategies/historyStrategy";
 import { HashStrategy } from "./strategies/hashStrategy";
 import { compilePath, matchPath } from "./pathParser";
+import { routerStore } from "../../stores/routerStore";
 
 const STRATEGIES = {
   history: HistoryStrategy,
@@ -40,11 +41,34 @@ export class Router {
     const currentPath = this.strategy.getCurrentPath();
     const { handler, params } = this._findHandler(currentPath);
 
+    // // 更新路由状态
+    const matchedRoute = routerStore
+      .getState()
+      .config.find((r) => this.matchPath(currentPath, r.path));
+    if (matchedRoute) {
+      routerStore.setState({
+        currentPath,
+        currentName: matchedRoute.name,
+      });
+    }
+
     if (handler) {
       handler(params);
     } else {
       console.warn(`No route handler for path: ${currentPath}`);
     }
+  }
+
+  // 简易路径匹配（支持动态参数）
+  matchPath(currentPath, routePath) {
+    const routeSegments = routePath.split("/");
+    const pathSegments = currentPath.split("/");
+
+    if (routeSegments.length !== pathSegments.length) return false;
+
+    return routeSegments.every(
+      (seg, i) => seg.startsWith(":") || seg === pathSegments[i]
+    );
   }
 
   _findHandler(currentPath) {
