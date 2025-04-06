@@ -11,6 +11,7 @@ import { createRouter } from "./utils/router";
 import { HomePage } from "./pages/HomePage/HomePage.js"; //引入Home 页面
 import { DashboardsPage } from "./pages/DashboardsPage/DashboardsPage.js"; //DashboardsPage 页面
 import { WebElementsPage } from "./pages/WebElementsPage/WebElementsPage.js"; //WebElementsPage 页面
+import { UserPage } from "./pages/UserPage/UserPage.js"; //UserPage 页面
 
 const menuConfig = [
   { type: "title", name: "Menu" },
@@ -79,7 +80,16 @@ const menuConfig = [
   {
     name: "Web Elements",
     path: "/WebElements",
+    //path: "#/WebElements",
     icon: "bx bx-category",
+    children: [],
+  },
+  // User
+  {
+    name: "User",
+    path: "/User/100",
+    //path: "#/WebElements",
+    icon: "bx bx-user",
     children: [],
   },
   // UI Elements
@@ -287,8 +297,13 @@ const router = createRouter({
     "/WebElements": () => {
       DomUtils.renderToContainer(WebElementsPage, "content");
     },
-    "/user/:id": () => {
-      DomUtils.renderToContainer(DashboardsPage, "content");
+    "/user/:id": (params) => {
+      // DomUtils.replaceElement(footer.render(), ".content-container");
+      //DomUtils.renderToContainer(WebElementsPage, "content");
+      DomUtils.replaceElement(
+        new UserPage(params.id).render(),
+        ".content-container"
+      );
     },
     "*": () =>
       (document.getElementById("app").innerHTML = "<h1>404 Not Found</h1>"),
