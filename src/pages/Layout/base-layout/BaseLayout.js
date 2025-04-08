@@ -13,14 +13,14 @@ export class BaseLayout {
       {
         name: "Home",
         //path: "#/Home",
-        path: "/Home",
+        path: "/home",
         icon: "bx bx-home-smile",
         children: [],
       },
       // Dashboard
       {
         name: "Dashboards",
-        path: "/Dashboards",
+        path: "/dashboards",
         //path: "#/Dashboards",
         icon: "bx bx-home-smile",
         badge: { text: "01", color: "bg-primary" },
@@ -74,7 +74,7 @@ export class BaseLayout {
       // Web Elements
       {
         name: "Web Elements",
-        path: "/WebElements",
+        path: "/web-elements",
         //path: "#/WebElements",
         icon: "bx bx-category",
         children: [],

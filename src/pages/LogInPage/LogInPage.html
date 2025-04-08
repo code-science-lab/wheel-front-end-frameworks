@@ -17,18 +17,7 @@
             </a>
           </div>
 
-          <form action="/">
-            <div class="form-group mb-3">
-              <label class="form-label" for="name">Name</label>
-              <input
-                class="form-control"
-                type="text"
-                id="name"
-                required=""
-                placeholder="Enter your Name"
-              />
-            </div>
-
+          <form action="#">
             <div class="form-group mb-3">
               <label class="form-label" for="emailaddress">Email address</label>
               <input
@@ -63,18 +52,14 @@
                   checked
                 />
                 <label class="form-check-label ms-2" for="checkbox-signin"
-                  >I accept <a href="">Terms and Conditions</a></label
+                  >Remember me</label
                 >
               </div>
             </div>
 
             <div class="form-group mb-0 text-center">
-              <button
-                id="btnSignUp"
-                class="btn btn-primary w-100"
-                type="button"
-              >
-                Sign Up
+              <button class="btn btn-primary w-100" type="button">
+                Log In
               </button>
             </div>
           </form>
@@ -86,9 +71,14 @@
       <div class="row mt-3">
         <div class="col-12 text-center">
           <p class="text-white-50">
-            Already have an account ?
-            <a href="/log-in" class="text-white font-weight-medium ms-1"
-              >Log In</a
+            <a href="/register" class="text-white-50 ms-1"
+              >Forgot your password?</a
+            >
+          </p>
+          <p class="text-white-50">
+            Don't have an account?
+            <a href="/register" class="text-white font-weight-medium ms-1"
+              >Sign Up</a
             >
           </p>
         </div>

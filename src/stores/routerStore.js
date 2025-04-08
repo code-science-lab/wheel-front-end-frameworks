@@ -1,9 +1,9 @@
 import { createStore } from "./core/state-manager";
 const routerConfig = [
-  { name: "Home", path: "/" },
-  { name: "Home", path: "/Home" },
-  { name: "Dashboards", path: "/Dashboards" },
-  { name: "WebElements", path: "/WebElements" },
+  { name: "home", path: "/" },
+  { name: "home", path: "/home" },
+  { name: "dashboards", path: "/dashboards" },
+  { name: "web-elements", path: "/web-elements" },
 ];
 
 // 初始路由状态

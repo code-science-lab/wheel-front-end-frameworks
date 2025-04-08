@@ -9,6 +9,8 @@ import { WebElementsPage } from "./pages/WebElementsPage/WebElementsPage.js"; //
 import { UserPage } from "./pages/UserPage/UserPage.js"; //UserPage 页面
 
 import { RegisterPage } from "./pages/RegisterPage/RegisterPage.js"; //RegisterPage 页面
+import { LogInPage } from "./pages/LogInPage/LogInPage.js"; //LogInPage 页面
+
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage.js"; //NotFoundPage 页面
 
 //初始化路由
@@ -16,10 +18,11 @@ const router = createRouter({
   mode: "history", // 'history' 或 'hash'
   routes: {
     "/": () => renderBasicPage(HomePage),
-    "/Home": () => renderBasicPage(HomePage),
-    "/Dashboards": () => renderBasicPage(DashboardsPage),
-    "/WebElements": () => renderBasicPage(WebElementsPage),
-    "/Register": () => renderPage(RegisterPage),
+    "/home": () => renderBasicPage(HomePage),
+    "/dashboards": () => renderBasicPage(DashboardsPage),
+    "/web-elements": () => renderBasicPage(WebElementsPage),
+    "/register": () => renderPage(RegisterPage),
+    "/log-in": () => renderPage(LogInPage),
     "/user/:id": (params) => {
       // DomUtils.replaceElement(footer.render(), ".content-container");
       //DomUtils.renderToContainer(WebElementsPage, "content");

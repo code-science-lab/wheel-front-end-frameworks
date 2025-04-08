@@ -84,7 +84,7 @@ export class RegisterPage {
       console.log("注册成功", result);
       alert("注册成功！"); // 注册成功后显示提示
       // 跳转页面
-      window.router.push("/sign-in");
+      window.router.push("/log-in");
     } catch (error) {
       console.error("注册失败", error);
       alert("注册失败，请重试！"); // 显示失败提示
