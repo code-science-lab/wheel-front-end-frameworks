@@ -78,18 +78,6 @@ module.exports = {
       filename: "starter.html", // 输出文件名
       inject: "body", // 确保 JavaScript 被正确注入到 body 标签的底部
     }),
-    new HtmlWebpackPlugin({
-      template: "./src/pages/index-dev.html",
-      filename: "index-dev.html",
-    }),
-    new HtmlWebpackPlugin({
-      template: "./src/pages/index.html", // 使用 index.html 作为模板
-      filename: "index.html", // 输出文件名
-    }),
-    new HtmlWebpackPlugin({
-      template: "./src/pages/about.html",
-      filename: "about.html",
-    }),
   ],
   mode: "development", // 开发模式
 };
