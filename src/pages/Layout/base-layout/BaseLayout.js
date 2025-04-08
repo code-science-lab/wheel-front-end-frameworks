@@ -273,8 +273,8 @@ export class BaseLayout {
     this._replaceElement(footer.render(), ".footer-container", dom);
 
     const contentContainer = dom.querySelector("#content");
-    // contentContainer.innerHTML = "";
-    // contentContainer.appendChild(new PageClass().render());
+    contentContainer.innerHTML = "";
+    contentContainer.appendChild(new PageClass().render());
 
     if (contentContainer) {
       contentContainer.innerHTML = "";

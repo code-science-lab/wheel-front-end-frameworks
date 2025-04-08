@@ -36,11 +36,13 @@ const router = createRouter({
 function renderBasicPage(PageClass) {
   const contentDOM = new BaseLayout().render(PageClass);
   const appRoot = document.getElementById("app");
+  appRoot.innerHTML = "";
   appRoot.appendChild(contentDOM);
 }
 function renderPage(PageClass) {
   const contentDOM = new PageClass().render();
   const appRoot = document.getElementById("app");
+  appRoot.innerHTML = "";
   appRoot.appendChild(contentDOM);
 }
 // 暴露到全局方便测试
