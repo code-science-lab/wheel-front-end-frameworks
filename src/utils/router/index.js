@@ -1,7 +1,6 @@
 import { HistoryStrategy } from "./strategies/historyStrategy";
 import { HashStrategy } from "./strategies/hashStrategy";
 import { compilePath, matchPath } from "./pathParser";
-import { routerStore } from "../../stores/routerStore";
 
 const STRATEGIES = {
   history: HistoryStrategy,
@@ -10,6 +9,7 @@ const STRATEGIES = {
 
 export class Router {
   constructor(config = {}) {
+    this.routerStore = config.routerStore;
     this.mode = config.mode || "hash";
     this.routes = this._processRoutes(config.routes || {});
     this.strategy = new STRATEGIES[this.mode](config.baseURL);
@@ -42,11 +42,11 @@ export class Router {
     const { handler, params } = this._findHandler(currentPath);
 
     // // 更新路由状态
-    const matchedRoute = routerStore
+    const matchedRoute = this.routerStore
       .getState()
       .config.find((r) => this.matchPath(currentPath, r.path));
     if (matchedRoute) {
-      routerStore.setState({
+      this.routerStore.setState({
         currentPath,
         currentName: matchedRoute.name,
       });

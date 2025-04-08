@@ -13,10 +13,12 @@ const initialState = {
   config: routerConfig,
 };
 
-export const routerStore = createStore(initialState, [
-  // 可添加路由中间件
-  (store) => (next) => (updater) => {
-    console.log("路由状态变更:", store.getState());
-    return next(updater);
-  },
-]);
+// 调试中间件
+const loggerMiddleware = (store) => (next) => (updater) => {
+  console.log("Before state:", store.getState());
+  const result = next(updater);
+  console.log("After state:", store.getState());
+  return result;
+};
+
+export const routerStore = createStore(initialState, [loggerMiddleware]);

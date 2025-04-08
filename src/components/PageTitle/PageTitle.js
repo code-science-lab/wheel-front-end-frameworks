@@ -15,26 +15,8 @@ export class PageTitle {
       ],
       ...data,
     };
-
-    // 订阅路由变化（新增）
-    this.unsubscribe = routerStore.subscribe(
-      (state) => ({
-        routeName: state.currentName,
-        path: state.currentPath,
-      }),
-      ({ routeName, path }) => {
-        this.updateTitle(routeName);
-        // this.updateBreadcrumb(path); // 可选：根据路由更新面包屑
-      }
-    );
-  }
-  // 动态更新标题（新增）
-  updateTitle(routeName) {
-    this.data.title = routeName || this.data.title;
-    const titleElement = document.querySelector(".page-title");
-    if (titleElement) {
-      titleElement.textContent = this.data.title;
-    }
+    this.dom = null;
+    this.unsubscribe = null;
   }
 
   render() {
@@ -42,8 +24,8 @@ export class PageTitle {
     let breadcrumbHtml = this.data.breadcrumb
       .map((item) => {
         return `<li class="breadcrumb-item">
-                <a href="${item.link}">${item.text}</a>
-              </li>`;
+              <a href="${item.link}">${item.text}</a>
+            </li>`;
       })
       .join("");
 
@@ -52,7 +34,24 @@ export class PageTitle {
       .replace("{{title}}", this.data.title)
       .replace("{{breadcrumb}}", breadcrumbHtml);
 
-    // 调用 DomUtils 的静态方法将字符串转换为 DOM 元素
-    return DomUtils.convertToDom(pageTitleHtml);
+    this.dom = DomUtils.convertToDom(pageTitleHtml);
+    // 订阅路由变化（新增）
+    this.unsubscribe = routerStore.subscribe(
+      (state) => state.currentName, // 只选择 currentName,
+      (currentName) => {
+        console.log(`Route changed to: ${currentName}`);
+        this.updateTitle(currentName);
+        // this.updateBreadcrumb(path); // 可选：根据路由更新面包屑
+      }
+    );
+    return this.dom;
+  }
+
+  updateTitle(routeName) {
+    this.data.title = routeName || this.data.title;
+    const titleElement = this.dom.querySelector(".page-title");
+    if (titleElement) {
+      titleElement.textContent = this.data.title;
+    }
   }
 }
