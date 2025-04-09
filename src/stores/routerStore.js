@@ -4,6 +4,7 @@ const routerConfig = [
   { name: "home", path: "/home" },
   { name: "dashboards", path: "/dashboards" },
   { name: "web-elements", path: "/web-elements" },
+  { name: "register", path: "/register" },
 ];
 
 // 初始路由状态

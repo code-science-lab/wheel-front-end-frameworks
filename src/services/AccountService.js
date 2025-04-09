@@ -11,4 +11,16 @@ export class AccountService {
       throw error; // 将错误抛出，供调用者处理
     }
   }
+  // 用户登录方法
+  static async loginUser(credentials) {
+    try {
+      const response = await post("/accounts/token", credentials);
+      return response;
+    } catch (error) {
+      const serverMessage = error.response?.data?.message;
+      const errorMessage = serverMessage || error.message;
+      console.error("登录失败:", errorMessage);
+      throw new Error(errorMessage);
+    }
+  }
 }

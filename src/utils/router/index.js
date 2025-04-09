@@ -42,15 +42,15 @@ export class Router {
     const { handler, params } = this._findHandler(currentPath);
 
     // // 更新路由状态
-    const matchedRoute = this.routerStore
-      .getState()
-      .config.find((r) => this.matchPath(currentPath, r.path));
-    if (matchedRoute) {
-      this.routerStore.setState({
-        currentPath,
-        currentName: matchedRoute.name,
-      });
-    }
+    // const matchedRoute = this.routerStore
+    //   .getState()
+    //   .config.find((r) => this.matchPath(currentPath, r.path));
+    // if (matchedRoute) {
+    //   this.routerStore.setState({
+    //     currentPath,
+    //     currentName: matchedRoute.name,
+    //   });
+    // }
 
     if (handler) {
       handler(params);

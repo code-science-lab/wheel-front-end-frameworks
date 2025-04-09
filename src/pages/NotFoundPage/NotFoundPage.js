@@ -1,9 +1,10 @@
 // NotFoundPage.js
 import strHtml from "./NotFoundPage.html"; // 使用 raw-loader 加载 HTML 文件
 import { DomUtils } from "../../utils/DomUtils"; // 引入 DomUtils 类
-
-export class NotFoundPage {
+import { BasePage } from "../BacePage"; // 引入 BacePage 类
+export class NotFoundPage extends BasePage {
   constructor() {
+    super();
     // 初始化样式
     const classesToAdd = [
       "bg-primary",

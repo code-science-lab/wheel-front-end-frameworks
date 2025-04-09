@@ -2,7 +2,7 @@
 import axios from "axios";
 
 // API 基础URL
-const API_BASE_URL = "http://localhost:3001/"; // 替换成实际的API地址
+const API_BASE_URL = "http://localhost:3001/api/"; // 替换成实际的API地址
 
 // 创建 axios 实例
 const apiClient = axios.create({

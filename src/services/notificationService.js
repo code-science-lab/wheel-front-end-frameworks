@@ -3,7 +3,7 @@ import { get } from "./api";
 export const notificationService = {
   // 只获取Navbar需要的通知数据
   getNotifications: async () => {
-    const response = await get("/api/notifications?limit=5");
+    const response = await get("/users/notifications?limit=5");
     return {
       items: response.items.map((item) => ({
         type: item.type || "message",
