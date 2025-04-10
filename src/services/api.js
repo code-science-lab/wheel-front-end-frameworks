@@ -33,8 +33,10 @@ apiClient.interceptors.response.use(
   (error) => {
     const status = error.response ? error.response.status : null;
     if (status === 401) {
-      // 处理未授权（比如跳转到登录页面）
       console.error("Token expired or invalid");
+      // // 处理未授权（清除失效凭证 + 跳转到登录页面）
+      localStorage.removeItem("auth_token");
+      window.router.push("/log-in");
     } else if (status === 500) {
       // 处理服务器错误
       console.error("Server error");

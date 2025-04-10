@@ -18,9 +18,10 @@ export class Router {
   }
 
   _processRoutes(routes) {
-    return Object.entries(routes).map(([path, handler]) => ({
+    return Object.entries(routes).map(([path, config]) => ({
       path,
-      handler,
+      handler: config.handler, // 正确提取 handler
+      meta: config.meta || {}, // 提取 meta 数据
       regex: path.includes(":") ? compilePath(path) : null,
       exact: !path.includes(":"),
     }));
@@ -39,8 +40,15 @@ export class Router {
 
   _handleRouteChange() {
     const currentPath = this.strategy.getCurrentPath();
-    const { handler, params } = this._findHandler(currentPath);
+    const { handler, params, route } = this._findHandler(currentPath); // 修改返回route
 
+    // 权限校验
+    if (route?.meta?.requiresAuth) {
+      if (!this._checkAuth(route.meta)) {
+        this.replace("/log-in");
+        return;
+      }
+    }
     // // 更新路由状态
     // const matchedRoute = this.routerStore
     //   .getState()
@@ -58,38 +66,71 @@ export class Router {
       console.warn(`No route handler for path: ${currentPath}`);
     }
   }
+  // 权限校验方法(新增)
+  _checkAuth(meta) {
+    const user = localStorage.getItem("user"); // 假设存储用户信息
 
-  // 简易路径匹配（支持动态参数）
-  matchPath(currentPath, routePath) {
-    const routeSegments = routePath.split("/");
-    const pathSegments = currentPath.split("/");
+    // 检查登录状态
+    if (!localStorage.getItem("auth_token")) {
+      return false;
+    }
 
-    if (routeSegments.length !== pathSegments.length) return false;
+    // 检查角色权限
+    if (meta.roles) {
+      return meta.roles.includes(user?.role); // 根据实际数据结构调整
+    }
 
-    return routeSegments.every(
-      (seg, i) => seg.startsWith(":") || seg === pathSegments[i]
-    );
+    return true;
   }
+  // // 简易路径匹配（支持动态参数）
+  // matchPath(currentPath, routePath) {
+  //   const routeSegments = routePath.split("/");
+  //   const pathSegments = currentPath.split("/");
+
+  //   if (routeSegments.length !== pathSegments.length) return false;
+
+  //   return routeSegments.every(
+  //     (seg, i) => seg.startsWith(":") || seg === pathSegments[i]
+  //   );
+  // }
 
   _findHandler(currentPath) {
     // 1. 精确匹配
     const exactMatch = this.routes.find(
       (r) => r.exact && r.path === currentPath
     );
-    if (exactMatch) return { handler: exactMatch.handler, params: {} };
+    if (exactMatch)
+      return {
+        handler: exactMatch.handler,
+        params: {},
+        route: exactMatch, // 新增 route 属性
+      };
 
     // 2. 动态路由匹配
     for (const route of this.routes) {
       if (!route.regex) continue;
       const params = matchPath(currentPath, route.path);
-      if (params) return { handler: route.handler, params };
+      if (params)
+        return {
+          handler: route.handler,
+          params,
+          route: route, // 返回当前路由对象
+        };
     }
 
     // 3. 通配符匹配
     const wildcard = this.routes.find((r) => r.path === "*");
     return wildcard
-      ? { handler: wildcard.handler, params: { path: currentPath } }
-      : { handler: null, params: {} };
+      ? {
+          handler: wildcard.handler,
+          params: { path: currentPath },
+          route: wildcard,
+        }
+      : {
+          handler: null,
+          params: {},
+          route: null, // 明确返回 null 表示未匹配
+        };
   }
 
   _handleLinkClick(event) {

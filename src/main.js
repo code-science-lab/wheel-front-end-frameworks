@@ -17,21 +17,40 @@ import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage.js"; //NotFoundP
 const router = createRouter({
   mode: "history", // 'history' 或 'hash'
   routes: {
-    "/": () => renderBasicPage(HomePage),
-    "/home": () => renderBasicPage(HomePage),
-    "/dashboards": () => renderBasicPage(DashboardsPage),
-    "/web-elements": () => renderBasicPage(WebElementsPage),
-    "/register": () => renderPage(RegisterPage),
-    "/log-in": () => renderPage(LogInPage),
+    "/": {
+      handler: () => renderBasicPage(HomePage),
+      meta: { requiresAuth: true }, // 权限元数据
+    },
+    "/home": {
+      handler: () => renderBasicPage(HomePage),
+      meta: { requiresAuth: true },
+    },
+    "/dashboards": {
+      handler: () => renderBasicPage(DashboardsPage),
+      meta: { requiresAuth: true },
+    },
+    "/web-elements": {
+      handler: () => renderBasicPage(WebElementsPage),
+      meta: { requiresAuth: true },
+      //meta: { requiresAuth: true, roles: ["admin"] }, // 权限元数据
+    },
+    "/register": {
+      handler: () => renderPage(RegisterPage),
+      meta: { requiresAuth: false },
+    },
+    "/log-in": {
+      handler: () => renderPage(LogInPage),
+      meta: { requiresAuth: false },
+    },
     "/user/:id": (params) => {
-      // DomUtils.replaceElement(footer.render(), ".content-container");
-      //DomUtils.renderToContainer(WebElementsPage, "content");
       DomUtils.replaceElement(
         new UserPage(params.id).render(),
         ".content-container"
       );
     },
-    "*": () => renderPage(NotFoundPage),
+    "*": {
+      handler: () => renderPage(NotFoundPage),
+    },
   },
   routerStore: routerStore,
 });

@@ -50,6 +50,18 @@ export class Navbar {
       .replace(/{{unreadCount}}/g, this.data.unreadCount)
       .replace("{{notifications}}", notificationsHtml);
 
-    return DomUtils.convertToDom(template);
+    const dom = DomUtils.convertToDom(template);
+    this._bindLogOutEvent(dom);
+    return dom;
+  }
+
+  _bindLogOutEvent(dom) {
+    const btnLogout = dom.querySelector("#btnLogout");
+    btnLogout.addEventListener("click", function (event) {
+      // 阻止默认行为
+      event.preventDefault();
+      localStorage.clear();
+      window.router.push("/log-in");
+    });
   }
 }
